@@ -1,0 +1,31 @@
+sr no 		api and routes												method				input					
+		https://boiling-sierra-48500.herokuapp.com/	
+		
+1		https://boiling-sierra-48500.herokuapp.com/api/user/add			post				{
+																								"empId": "302289",
+																								"empName": "raman",
+																								"address": "Hinjewadi Phase 3",
+																								"prefTech": "Nodejs",
+																								"mobileNo": "8655986652",
+																								"deptAllocated": "Development",
+																								"deptId": "16047",
+																								"techId": "4422"
+																							}						
+																							
+2 		https://boiling-sierra-48500.herokuapp.com/api/user/all				get						get all data
+
+3 		https://boiling-sierra-48500.herokuapp.com/api/user/byempid/:empId 	get					get single user by empId
+
+4		https://boiling-sierra-48500.herokuapp.com/api/user/byempid/:empId	put					put single user by id	
+																							{
+																								"empId": "302289",
+																								"empName": "raman bhau",
+																								"address": "Hinjewadi Phase 3",
+																								"prefTech": "Nodejs",
+																								"mobileNo": "8655986652",
+																								"deptAllocated": "Development",
+																								"deptId": "16047",
+																								"techId": "4422"
+																							}
+																							
+5		https://boiling-sierra-48500.herokuapp.com/api/user/byempid/:empId 	delete			delete user by id			

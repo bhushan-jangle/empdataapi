@@ -64,7 +64,7 @@ router.delete('/item/byitemid/:id', function (req, res) {
 router.delete('/user/byempid/:empId', function (req, res) {
   Item.findOneAndDelete(req.params.empId, function (err, items) {
       if (err) return res.status(500).send("There was a problem deleting the group.");
-      res.status(200).send("user: "+ items.empId +" was deleted.");
+      res.status(200).json({ message: "successfully deleted a "+ items.empName });
   });
 });
 
