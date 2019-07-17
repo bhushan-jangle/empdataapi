@@ -24,11 +24,20 @@ router.post('/user/add', function (req, res) {
 });
 
 // RETURNS ALL THE ITEMS IN THE DATABASE
-router.get('/user/all', function (req, res) {
+router.get('/get/all', function (req, res) {
   Item.find({}, function (err, items) {
         if (err) return res.status(500).send("There was a problem finding the items.");
         res.status(200).send(items);
     });
+});
+
+// GETS A SINGLE USER FROM THE DATABASE
+router.get('/get/byid/:id', function (req, res) {
+  Item.findById(req.params.id, function (err, user) {
+      if (err) return res.status(500).send("There was a problem finding the user.");
+      if (!user) return res.status(404).send("No user found.");
+      res.status(200).send(user);
+  });
 });
 
 // GETS A SINGLE ITEM FROM THE DATABASE
@@ -52,11 +61,20 @@ router.put('/user/byempid/:empId', function (req, res) {
   });
 });
 
-// DELETES A ITEM FROM THE DATABASE
-router.delete('/item/byitemid/:id', function (req, res) {
-  Item.findByIdAndRemove(req.params.id, function (err, items) {
-      if (err) return res.status(500).send("There was a problem deleting the user.");
-      res.status(200).send("Item: "+ items.itemName +" was deleted.");
+// UPDATES A SINGLE ITEM IN THE DATABASE
+router.put('/update/byid/:id', function (req, res) {
+  Item.findByIdAndUpdate(req.params.id, req.body, {new: true}, function (err, items) {
+      if (err) return res.status(500).send("There was a problem updating the item.");
+      res.status(200).send(items);
+  });
+});
+
+
+// DELETES A GROUP FROM THE DATABASE
+router.delete('/delete/byid/:id', function (req, res) {
+  Item.findByIdAndRemove(req.params.id, function (err, resp) {
+      if (err) return res.status(500).send("There was a problem deleting the group.");
+      res.status(200).json({message:"user: "+ resp.id +" was deleted."});
   });
 });
 
@@ -64,23 +82,7 @@ router.delete('/item/byitemid/:id', function (req, res) {
 router.delete('/user/byempid/:empId', function (req, res) {
   Item.findOneAndDelete(req.params.empId, function (err, items) {
       if (err) return res.status(500).send("There was a problem deleting the group.");
-      res.status(200).json({ message: "successfully deleted a "+ items.empName });
-  });
-});
-
-// DELETES A GROUP FROM THE DATABASE
-router.delete('/group/bygroupid/:id', function (req, res) {
-  Group.findByIdAndRemove(req.params.id, function (err, groups) {
-      if (err) return res.status(500).send("There was a problem deleting the group.");
-      res.status(200).send("Group: "+ groups.groupName +" was deleted.");
-  });
-});
-
-// DELETES A GROUP FROM THE DATABASE
-router.delete('/group/bygroupnumber/:groupNumber', function (req, res) {
-  Group.findOneAndDelete(req.params.groupNumber, function (err, groups) {
-      if (err) return res.status(500).send("There was a problem deleting the group.");
-      res.status(200).send("Group: "+ groups.groupName +" was deleted.");
+      res.status(200).send(items);
   });
 });
 
